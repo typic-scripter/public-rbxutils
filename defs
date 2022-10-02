@@ -1,0 +1,4 @@
+local defs = {players = game:GetService("Players"), runservice = game:GetService("RunService"), uis = game:GetService("UserInputService")}
+defs.player = defs.players.LocalPlayer
+defs.getcharacter = function() return defs.player.Character or defs.player.CharacterAdded:wait() end
+return defs
