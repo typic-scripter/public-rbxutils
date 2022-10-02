@@ -1,0 +1,98 @@
+local RunService = game:GetService("RunService")
+local LocalPlayer = game:GetService("Players").LocalPlayer
+local function GetNetlessVelocity(Velocity)
+    if Velocity.Y > 1 or Velocity.Y < -1 then
+        return Velocity * (25.1 / Velocity.Y)
+    end
+
+    Velocity = Velocity * Vector3.new(1, 0, 1)
+
+    local Magnitude = Velocity.Magnitude
+
+    if Magnitude > 1 then
+        Velocity = Velocity * 100 / Magnitude
+    end
+
+    return Velocity + Vector3.new(0, 25.1, 0)
+end
+
+local function Align(Part0, Part1, Position, Rotation)
+    Part0.CustomPhysicalProperties = PhysicalProperties.new(0.0001, 0.0001, 0.0001, 0.0001, 0.0001)
+    Part0.CFrame = Part1.CFrame;
+
+    local Attachment0 = Instance.new("Attachment", Part0)
+
+    Attachment0.Orientation = Position or Vector3.new(0, 0, 0)
+    Attachment0.Position = Vector3.new(0, 0, 0)
+    Attachment0.Name = "Attachment0_" .. Part0.Name
+
+    local Attachment1 = Instance.new("Attachment", Part1)
+
+    Attachment1.Orientation = Vector3.new(0, 0, 0)
+    Attachment1.Position = Position or Vector3.new(0, 0, 0)
+    Attachment1.Name = "Attachment1_" .. Part1.Name
+
+    local AlignPosition = Instance.new("AlignPosition", Attachment0)
+
+    AlignPosition.ApplyAtCenterOfMass = false
+    AlignPosition.MaxForce = math.huge
+    AlignPosition.MaxVelocity = math.huge
+    AlignPosition.ReactionForceEnabled = false
+    AlignPosition.Responsiveness = 200
+    AlignPosition.Attachment1 = Attachment1
+    AlignPosition.Attachment0 = Attachment0
+    AlignPosition.Name = "AlignPosition"
+    AlignPosition.RigidityEnabled = false
+
+    local AlignOrientation = Instance.new("AlignOrientation", Attachment0)
+    AlignOrientation.MaxAngularVelocity = math.huge
+    AlignOrientation.MaxTorque = math.huge
+    AlignOrientation.PrimaryAxisOnly = false
+    AlignOrientation.ReactionTorqueEnabled = false
+    AlignOrientation.Responsiveness = 200
+    AlignOrientation.Attachment1 = Attachment1
+    AlignOrientation.Attachment0 = Attachment0
+    AlignOrientation.RigidityEnabled = false
+
+    local RVelocity = Vector3.new(0, 25.1, 0)
+
+    local Stepped = RunService.Stepped:Connect(function()
+        Part0.Velocity = RVelocity
+    end)
+
+    local Heartbeat = RunService.Heartbeat:Connect(function()
+        RVelocity = Part0.Velocity
+        Part0.Velocity = GetNetlessVelocity(RVelocity)
+    end)
+
+    Part0.Destroying:Connect(function()
+        Part0 = nil
+
+        Stepped:Disconnect()
+        Heartbeat:Disconnect()
+    end)
+
+    Attachment0.Orientation = Rotation or Vector3.new(0, 0, 0)
+    Attachment0.Position = Vector3.new(0, 0, 0)
+    Attachment1.Orientation = Vector3.new(0, 0, 0)
+    Attachment1.Position = Position or Vector3.new(0, 0, 0)
+
+    Part0.CFrame = Part1.CFrame
+end
+function Weld(Part0,Part1,C0,C1) -- smart trick
+    local p = Part0:Clone()
+    p.Parent = Part0
+    for _,x in pairs(p:GetDescendants()) do
+        x:Destroy()
+    end
+    p.Transparency = 1
+    p.Massless = true
+    local w = Instance.new("Weld",p)
+    w.Part0 = p
+    w.Part1 = Part1
+    w.C0 = C0 or CFrame.new(0,0,0)
+    w.C1 = C1 or CFrame.new(0,0,0)
+    Align(Part0,p)
+    return w
+end
+return Align, Weld
