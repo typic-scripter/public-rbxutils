@@ -53,15 +53,7 @@ local function Align(Part0, Part1, Position, Rotation)
     AlignOrientation.Attachment1 = Attachment1
     AlignOrientation.Attachment0 = Attachment0
     AlignOrientation.RigidityEnabled = false
-
-    local RVelocity = Vector3.new(0, 25.1, 0)
-
-    local Stepped = RunService.Stepped:Connect(function()
-        Part0.Velocity = RVelocity
-    end)
-
     local Heartbeat = RunService.Heartbeat:Connect(function()
-        RVelocity = Part0.Velocity
         Part0.Velocity = GetNetlessVelocity(RVelocity)
     end)
 
