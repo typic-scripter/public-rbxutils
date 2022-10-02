@@ -116,7 +116,8 @@ return function(animid)
         end
     end)
     
-    return {stop = function() playanother = true end, start = function() playanother = false task.spawn(function()
+    return {stop = function() playanother = true end, start = function() task.spawn(function()
+        playanother = false
         while wait() do
             if playanother == true then
                 break
