@@ -1,5 +1,10 @@
 local RunService = game:GetService("RunService")
 local LocalPlayer = game:GetService("Players").LocalPlayer
+local fenv = getfenv()
+local shp = fenv.sethiddenproperty or fenv.set_hidden_property or fenv.set_hidden_prop or fenv.sethiddenprop
+RunService.Stepped:Connect(function()
+    shp(LocalPlayer,"SimulationRadius",LocalPlayer.MaximumSimulationRadius)
+end)
 local function GetNetlessVelocity(Velocity)
     if Velocity.Y > 1 or Velocity.Y < -1 then
         return Velocity * (25.1 / Velocity.Y)
