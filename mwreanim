@@ -317,12 +317,14 @@ local scriptNames = {}
 for i, v in pairs(getdescendants(c)) do
     if isa(v, "BasePart") then
         local newName, exists = tostring(i), true
-        while exists do
-            exists = OLDscripts[newName]
-            if exists then
-                newName = newName .. "_"    
+        tdelay(0,function()
+            while exists do
+                exists = OLDscripts[newName]
+                if exists then
+                    newName = newName .. "_"    
+                end
             end
-        end
+        end)
         table.insert(scriptNames, newName)
         Instance.new("Script", v).Name = newName
     end
