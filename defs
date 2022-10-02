@@ -5,4 +5,5 @@ defs.getanimtrack = function(humanoid,content) local anim = Instance.new("Animat
 defs.getselfhumanoid = function() local hum = defs.getcharacter():FindFirstChildWhichIsA("Humanoid"); repeat hum = defs.getcharacter():FindFirstChildWhichIsA("Humanoid"); task.wait() until hum; return hum end
 defs.getrootpart = function() return defs.getcharacter():FindFirstChild("HumanoidRootPart") or defs.getcharacter():FindFirstChild("Torso") or defs.getcharacter():FindFirstChild("LowerTorso") end
 defs.stepped = defs.runservice.Stepped
+defs.renderstepped = defs.runservice.RenderStepped
 return defs
