@@ -111,7 +111,9 @@ return function(animid)
     end
     task.spawn(function()
         while wait() do
-            if realfrong then
+            if playanother then
+                break
+            elseif realfrong then
                 for i,oasjdadlasdkadkldjkl in pairs(anim) do
                     asdf=getnext(anim,count)
                     v=anim[asdf]
@@ -166,5 +168,5 @@ return function(animid)
         end
     end)
     
-    return {stop = function() realfrong = false end, start = function() realfrong = true end}
+    return {stop = function() realfrong = false end, start = function() realfrong = true end, break = function() playanother = true end}
 end
