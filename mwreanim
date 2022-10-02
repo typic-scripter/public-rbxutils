@@ -1,5 +1,5 @@
 -- for some reason gay so now fling is also copied onto _G.fling
-return function(noclip,method,simrad,healthHide,reclaim,addtools,newanimate,r15tor6,hatcollide)
+return function(noclip,method,simrad,healthHide,reclaim,addtools,newanimate,r15tor6,hatcollide,flingpart)
 local v3_net, v3_808 = Vector3.new(0, 25.1, 0), Vector3.new(8, 0, 8)
 local function getNetlessVelocity(realPartVelocity)
     local mag = realPartVelocity.Magnitude
@@ -44,7 +44,7 @@ local alignmode = 4 --AlignPosition mode
 --2 - 2 AlignPositions rigidity enabled both true and false
 --3 - AlignPosition rigidity enabled false
 --4 - CFrame
-local flingpart = "HumanoidRootPart" --name of the part or the hat used for flinging
+local flingpart = flingpart or "HumanoidRootPart" --name of the part or the hat used for flinging
 --the fling function
 --usage: fling(target, duration, velocity)
 --target can be set to: basePart, CFrame, Vector3, character model or humanoid (flings at mouse.Hit if argument not provided))
