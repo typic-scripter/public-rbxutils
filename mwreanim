@@ -1,5 +1,5 @@
 -- for some reason gay so now fling is also copied onto _G.fling
-return function(noclip,method,simrad,healthHide,reclaim,addtools,newanimate,r15tor6)
+return function(noclip,method,simrad,healthHide,reclaim,addtools,newanimate,r15tor6,hatcollide)
 local v3_net, v3_808 = Vector3.new(0, 25.1, 0), Vector3.new(8, 0, 8)
 local function getNetlessVelocity(realPartVelocity)
     local mag = realPartVelocity.Magnitude
@@ -25,7 +25,7 @@ local antiragdoll = true --removes hingeConstraints and ballSocketConstraints fr
 local newanimate = newanimate or true --disables the animate script and enables after reanimation
 local discharscripts = true --disables all localScripts parented to your character before reanimation
 local R15toR6 = r15tor6 or true --tries to convert your character to r6 if its r15
-local hatcollide = false --makes hats cancollide (credit to ShownApe) (works only with reanimate method 0)
+local hatcollide = hatcollide or false --makes hats cancollide (credit to ShownApe) (works only with reanimate method 0)
 local humState16 = true --enables collisions for limbs before the humanoid dies (using hum:ChangeState)
 local addtools = addtools or false --puts all tools from backpack to character and lets you hold them after reanimation
 local hedafterneck = true --disable aligns for head and enable after neck or torso is removed
