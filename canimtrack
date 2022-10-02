@@ -168,5 +168,5 @@ return function(animid)
         end
     end)
     
-    return {stop = function() realfrong = false end, start = function() realfrong = true end, break = function() playanother = true end}
+    return {stop = function() realfrong = false end, start = function() realfrong = true end, breakplay = function() playanother = true end}
 end
