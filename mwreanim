@@ -1,3 +1,4 @@
+-- for some reason gay so now fling is also copied onto shared.fling
 return function(noclip,method,simrad,healthHide,reclaim,addtools,newanimate,r15tor6)
 local v3_net, v3_808 = Vector3.new(0, 25.1, 0), Vector3.new(8, 0, 8)
 local function getNetlessVelocity(realPartVelocity)
@@ -892,6 +893,7 @@ if flingpart0 and flingpart1 then
         end
     end
 end
+shared.fling = fling
 return fling
 --lp:GetMouse().Button1Down:Connect(fling) --click fling
 end
