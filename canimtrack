@@ -1,4 +1,4 @@
--- your meant to remove humanoid.animator or anim will stop when moving
+-- your meant to remove humanoid.animator or anim will stop when moving (no detection for now cuz rblx is gay)
 return function(animid)
     local playanother = false
     local playing = false
@@ -115,7 +115,8 @@ return function(animid)
             playing = false
         end
     end)
-    task.spawn(function()
+    
+    return {stop = function() playanother = true end, start = function() task.spawn(function()
         while wait() do
             if playanother == true then
                 break
@@ -167,6 +168,5 @@ return function(animid)
                 end
             end
         end
-    end)
-    return {stop = function() playanother = true end}
+    end) end}
 end
