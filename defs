@@ -1,4 +1,5 @@
 local defs = {players = game:GetService("Players"), runservice = game:GetService("RunService"), uis = game:GetService("UserInputService")}
 defs.player = defs.players.LocalPlayer
 defs.getcharacter = function() return defs.player.Character or defs.player.CharacterAdded:wait() end
+defs.getanimtrack = function(humanoid,content) local anim = Instance.new("Animation"); anim.AnimationId = content; return humanoid:LoadAnimation(anim) end
 return defs
