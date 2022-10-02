@@ -59,7 +59,7 @@ local function Align(Part0, Part1, Position, Rotation)
     AlignOrientation.Attachment0 = Attachment0
     AlignOrientation.RigidityEnabled = false
     local Heartbeat = RunService.Heartbeat:Connect(function()
-        Part0.Velocity = GetNetlessVelocity(RVelocity)
+        Part0.Velocity = GetNetlessVelocity(Part0.Velocity)
     end)
 
     Part0.Destroying:Connect(function()
