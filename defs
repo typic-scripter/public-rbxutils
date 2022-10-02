@@ -3,4 +3,5 @@ defs.player = defs.players.LocalPlayer
 defs.getcharacter = function() return defs.player.Character or defs.player.CharacterAdded:wait() end
 defs.getanimtrack = function(humanoid,content) local anim = Instance.new("Animation"); anim.AnimationId = content; return humanoid:LoadAnimation(anim) end
 defs.getselfhumanoid = function() local hum = defs.getcharacter():FindFirstChildWhichIsA("Humanoid"); repeat hum = defs.getcharacter():FindFirstChildWhichIsA("Humanoid"); task.wait() until hum; return hum end
+defs.stepped = defs.runservice.Stepped
 return defs
