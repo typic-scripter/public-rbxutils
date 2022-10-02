@@ -1,6 +1,7 @@
 -- your meant to remove humanoid.animator or anim will stop when moving (no detection for now cuz rblx is gay)
 return function(animid)
     local playanother = false
+    local realfrong = false
     local playing = false
     local rtrnv;
     local c;
@@ -82,9 +83,7 @@ return function(animid)
     count2 = 100
     maxcount2=100
     game:GetService("RunService").Heartbeat:Connect(function()
-        if playanother == true then
-            return nil
-        else
+        if realfrong then
             count2 = count2+1
             if count2<=maxcount2 then
                 rs.Transform=rs.Transform:Lerp(rsc0,count2/maxcount2)
@@ -110,18 +109,9 @@ return function(animid)
     for _,v in pairs(char.Humanoid:GetPlayingAnimationTracks()) do
         v:Stop()
     end
-    plr.CharacterRemoving:Connect(function()
-        if playing == true then
-            playing = false
-        end
-    end)
-    
-    return {stop = function() playanother = true end, start = function() task.spawn(function()
-        playanother = false
+    task.spawn(function()
         while wait() do
-            if playanother == true then
-                break
-            else
+            if realfrong then
                 for i,oasjdadlasdkadkldjkl in pairs(anim) do
                     asdf=getnext(anim,count)
                     v=anim[asdf]
@@ -169,5 +159,12 @@ return function(animid)
                 end
             end
         end
-    end) end}
+    end)
+    plr.CharacterRemoving:Connect(function()
+        if playing == true then
+            playing = false
+        end
+    end)
+    
+    return {stop = function() realfrong = false end, start = function() realfrong = true end}
 end
